@@ -4,7 +4,7 @@
 ## Como o nome diz, eu criei um simples algoritmo de chat-bot, onde no arquivo principal "index.py" contém uma classe que serve como o motor do algoritmo.
 
 
-# Criar ações
+<h1 style="text-align: center; width: 100vw;">Criar ações</h1>
  ###### Para criar ações ou resposta basta ir no arquivo /config/data.py e adicionar na lista "PhRaseActions", segue o corpo dela.
  
 ```
