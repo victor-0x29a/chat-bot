@@ -5,7 +5,7 @@
 
 
 <center>
-  #Criar ações
+  # Criar ações
   ###### Para criar ações ou resposta basta ir no arquivo /config/data.py e adicionar na lista "PhRaseActions", segue o corpo dela.
 
  ```
