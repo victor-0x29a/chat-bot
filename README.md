@@ -53,7 +53,7 @@
 
  ###### Adicionando esses valores na lista "Words", vamos partir para o valor "Actions", com isso deixe o campo "url" e "vetores" vazia. Deixe o campo "type" como "str", campo "payload" vazio "[]", agora no campo "response", deixe as possíveis respostas, agora em "action" deixe como  ```False```.
 
- ###### Após isso o motor já vai identificar que é uma questão de resposta e automaticamente vai responder com alguma resposta aleatória partindo do vetor "response"!
+ ###### Após isso o algoritmo já vai identificar que é uma questão de resposta e automaticamente vai responder com alguma resposta aleatória partindo do vetor "response"!
   
 </center>
 
