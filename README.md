@@ -62,7 +62,9 @@
 > Curiosidades
 > * Feito em menos de dois dias.
 > * Em versões futuras vou integrar com o NodeJS.
+> 
 <br/>
+
 > Bibliotecas
 > * os
 > * pyautogui
