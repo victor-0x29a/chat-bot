@@ -1,7 +1,8 @@
 # chat-bot
 
 
-## Como o nome diz, eu criei um simples algoritmo de chat-bot, onde no arquivo principal "index.py" contém uma classe que serve como o motor do algoritmo.
+
+
 
 
 <center>
