@@ -74,3 +74,8 @@
 > * random
 > * time
 
+<br
+    
+ ###### Versão do python utilizada: 3.11
+ ###### Versão do repositório: 1.0
+
