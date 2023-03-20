@@ -3,12 +3,6 @@ import gtts
 from playsound import playsound
 import random
 import os
-urlBase = "http://localhost"
-def MinAprendizado():
-    return 3;
-
-def indecisive():
-    return "Ops! não consegui identificar oque você quer que eu faça, você pode repetir de forma clara?"
 
 def speak(frase):
     try:
@@ -19,11 +13,6 @@ def speak(frase):
     except Exception as error:
         pass
 
-
-
-def execute(url, payload, base):
-    if len(base) < 2:
-        print("top vei")
 
 def getPhrase(array):
     tam = len(array)

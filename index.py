@@ -1,5 +1,5 @@
-from config.limits import MinAprendizado, indecisive, execute, speak, getPhrase
-from config.data import PhRaseActions
+from config.limits import speak, getPhrase
+from config.data import listActions
 
 class out:
     def __init__(self, stdin):
@@ -7,13 +7,15 @@ class out:
         self.choices = []
         self.std = stdin.lower().split()
         self.stdin = stdin
-        for acao in PhRaseActions():
+        for acao in listActions():
             for palavras in acao["Words"]:
                 for palavra in self.std:
                     if (palavra == palavras):
                         self.choices.append(acao["UUID"])
     def indecisive(self):
         return ["Ops! não consegui identificar oque você quer que eu faça, você pode repetir de forma clara?", "Talvez eu precise ter mais informações.", "Desculpe, não entendi a pergunta.", "Você poderia reformular a pergunta? ", "Pode repetir a pergunta?", "Não estou entendendo o que você está dizendo. ", "Você poderia ser mais específico? ", "Poderia ser mais claro, por favor? ", "Desculpe, não estou entendendo. ", "Por favor, explique a questão novamente."]
+    def error(self):
+        return ["Hum, houve um erro, tente novamente mais tarde!"]
     def MinAprendizado(self):
         return 3
     def coletaPorVetor(self, frase, vetor, type, initials):
@@ -74,22 +76,22 @@ class out:
     
         if (self.top["total"] < self.MinAprendizado()):
             return speak(getPhrase(self.indecisive()))
-        for item in PhRaseActions():
+        for item in listActions():
             if item["UUID"] == self.top["UUID"]:
                 if not item["Actions"]["vetores"]:
                     speak(getPhrase(item["response"]))
+                if item["action"]:
+                    item["action"]()
+                    return
                 for palavra in item["Actions"]["vetores"]:
                     if palavra in self.stdin:
                         self.dados = self.coletaPorVetor(self.stdin, palavra, item["type"], item["Actions"]["vetores"])
-                        if (self.dados and not item["action"]):
-                            self.payload = ""
-                            for obj in self.dados:
-                                self.payload += obj + ","
-                            self.payload = self.payload[0:len(self.payload) - 1]
-                            execute(item["Actions"]["url"], self.payload, item["payload"])
-                        elif self.dados and item["action"]:
+                        if self.dados and item["action"]:
                             speak(getPhrase(item["response"]))
                             item["action"](self.dados)
+                        else:
+                            speak(self.error())
+
 
 
 while True:
