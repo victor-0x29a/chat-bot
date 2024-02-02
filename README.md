@@ -1,15 +1,10 @@
-# Chat-Bot 
-
-
-
-
-
+# The engine
 
 <center>
   
-  ## Criar ações
+  ## Creating actions
   
-  ###### Para criar ações ou resposta basta ir no arquivo /config/data.py e adicionar na lista "PhRaseActions", segue o corpo dela.
+  ###### To create actions or responses, just go to the file /config/data.py and add them to the "PhRaseActions" list. See its structure below.
 
  ```
   {
@@ -23,19 +18,19 @@
   }
  ```
 
- ###### O campo UUID deixe como o tamanho total da lista subtraindo um, a lista "Words" fica responsável por identificar a frase e redirecionar para a ação ou resposta, então vamos para um exemplo, caso vamos querer que o usuário fale - "Gere um valor entre 5 e 4"; Então vamos adicionar na "Words" as palavras "gere", "valor", "entre", "um";
+ ###### Leave the UUID field as the total size of the list minus one. The "Words" list is responsible for identifying the phrase and redirecting to the action or response. Let's take an example: if we want the user to say, "Generate a value between 5 and 4," then add the words "generate," "value," "between," "5," and "4" to the "Words" list.
 
- ###### Adicionando esses valores na lista "Words", vamos partir para o valor "Actions", com isso deixe o campo "url" vazia e adicione no campo "vetores" o vetor principal que vai pegar os valores, como no exemplo passado, vamos ter que pegar o valor 5 e 4, então a palavra anterior a esses valores é a palavra "entre", com isso, basta adicionar a palavra "entre" no campo "vetores"; Deixe agora o campo "type" como "str", deixe o campo "payload" e "response" vazio e no campo "action", coloque a função que pega recebe os valores "5 e 4" que vai ser pego após o vetor "entre".
+ ###### Adding these values to the "Words" list, let's move on to the "Actions" section. Leave the "url" field empty and add the main vector in the "vectors" field, which will capture the values. In the example given, we need to capture the values 5 and 4. The word preceding these values is "entre," so add the word "entre" to the "vectors" field. Now, set the "type" field as "str," leave the "payload" and "response" fields empty, and in the "action" field, input the function that receives the values "5 and 4," which will be captured after the "entre" vector.
 
- ###### Com isso basta finalizar sua função retirando os valores que não são núméricos e continuar sua ação, após concluir sua função, basta retornar falando com a função speak() e dentro de speak getPhrase(), dentro de "getPhrase()" coloque uma lista de possíveis respostas!
+ ###### With that, simply complete your function by removing non-numeric values and continue your action. After completing your function, return by speaking with the speak() function. Inside speak(), use getPhrase(). Within getPhrase(), include a list of possible responses!
 </center>
 <hr/>
 
 <center>
   
-  ## Criar respostas
+  ## Creating responses
   
-  ###### Para criar ações ou resposta basta ir no arquivo /config/data.py e adicionar na lista "PhRaseActions", segue o corpo dela.
+  ###### To create actions or responses, just go to the file /config/data.py and add them to the "PhRaseActions" list. Here is its structure.
 
  ```
   {
@@ -49,23 +44,23 @@
   }
  ```
 
- ###### O campo UUID deixe como o tamanho total da lista subtraindo um, a lista "Words" fica responsável por identificar a frase e redirecionar para a ação ou resposta, então vamos para um exemplo, caso vamos querer que o usuário fale - "Quem é seu criador?"; Então vamos adicionar na "Words" as palavras "quem", "criador", "seu";
+ ###### Leave the UUID field as the total size of the list minus one. The "Words" list is responsible for identifying the phrase and redirecting to the action or response. Let's take an example: if we want the user to say, "Who is your creator?" then add the words "who," "creator," and "your" to the "Words" list.
 
- ###### Adicionando esses valores na lista "Words", vamos partir para o valor "Actions", com isso deixe o campo "url" e "vetores" vazia. Deixe o campo "type" como "str", campo "payload" vazio "[]", agora no campo "response", deixe as possíveis respostas, agora em "action" deixe como  ```False```.
+ ###### Adding these values to the "Words" list, let's move on to the "Actions" section. Leave the "url" and "vectors" fields empty. Set the "type" field as "str," leave the "payload" field as an empty list "[]". In the "response" field, provide possible responses, and in the "action" field, set it as False.
 
- ###### Após isso o algoritmo já vai identificar que é uma questão de resposta e automaticamente vai responder com alguma resposta aleatória partindo do vetor "response"!
+ ###### After this, the algorithm will automatically recognize that it is a response question and will respond with a random answer from the "response" vector!
   
 </center>
 
 <hr/>
 
-> Curiosidades
-> * Feito em menos de dois dias.
-> * Em versões futuras vou integrar com o NodeJS.
+> Fun Facts
+> * Developed in less than two days.
+> * In future versions, I will integrate it with NodeJS.
 > 
 <br/>
 
-> Bibliotecas
+> Libraries
 > * os
 > * pyautogui
 > * gtts
@@ -76,6 +71,6 @@
 
 <br/>
     
- ###### Versão do python utilizada: 3.11
- ###### Versão do repositório: 1.0
+ ###### Python Version Used: 3.11
+ ###### Repository Version: 1.0
 
