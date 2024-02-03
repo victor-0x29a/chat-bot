@@ -1,5 +1,7 @@
 from config.limits import speak, getPhrase
 from config.data import listActions
+from constants import INDECISIVE_MESSAGES
+
 
 class out:
     def __init__(self, stdin):
@@ -12,8 +14,7 @@ class out:
                 for palavra in self.std:
                     if (palavra == palavras):
                         self.choices.append(acao["UUID"])
-    def indecisive(self):
-        return ["Ops! não consegui identificar oque você quer que eu faça, você pode repetir de forma clara?", "Talvez eu precise ter mais informações.", "Desculpe, não entendi a pergunta.", "Você poderia reformular a pergunta? ", "Pode repetir a pergunta?", "Não estou entendendo o que você está dizendo. ", "Você poderia ser mais específico? ", "Poderia ser mais claro, por favor? ", "Desculpe, não estou entendendo. ", "Por favor, explique a questão novamente."]
+
     def error(self):
         return ["Hum, houve um erro, tente novamente mais tarde!"]
     def MinAprendizado(self):
@@ -54,7 +55,7 @@ class out:
                 for i in self.inteiros:
                     if self.obj == str(i):
                         self.newArray.append(self.obj)
-        
+
         return self.newArray
     def start(self):
         for item in self.choices:
@@ -73,9 +74,9 @@ class out:
                 self.total+=1
             if self.total > self.top["total"]:
                 self.top = {"UUID": item["UUID"],"total": self.total}
-    
+
         if (self.top["total"] < self.MinAprendizado()):
-            return speak(getPhrase(self.indecisive()))
+            return speak(getPhrase(INDECISIVE_MESSAGES))
         for item in listActions():
             if item["UUID"] == self.top["UUID"]:
                 if not item["Actions"]["vetores"]:
@@ -91,7 +92,6 @@ class out:
                             item["action"](self.dados)
                         else:
                             speak(self.error())
-
 
 
 while True:
