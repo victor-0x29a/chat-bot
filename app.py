@@ -1,4 +1,4 @@
-from config.limits import speak, getPhrase
+from config.limits import speak, get_phrase
 from constants import (
     INDECISIVE_MESSAGES,
     ERROR_MESSAGES,
@@ -78,11 +78,11 @@ class out:
                 self.top = {"UUID": item["UUID"], "total": self.total}
 
         if (self.top["total"] < LEARNING_LEVEL):
-            return speak(getPhrase(INDECISIVE_MESSAGES))
+            return speak(get_phrase(INDECISIVE_MESSAGES))
         for item in ACTIONS:
             if item["UUID"] == self.top["UUID"]:
                 if not item["Actions"]["vetores"]:
-                    speak(getPhrase(item["response"]))
+                    speak(get_phrase(item["response"]))
                 if item["action"]:
                     item["action"]()
                     return
@@ -95,7 +95,7 @@ class out:
                             item["Actions"]["vetores"]
                         )
                         if self.dados and item["action"]:
-                            speak(getPhrase(item["response"]))
+                            speak(get_phrase(item["response"]))
                             item["action"](self.dados)
                         else:
                             speak(ERROR_MESSAGES)

@@ -4,19 +4,20 @@ from playsound import playsound
 import random
 import os
 
-def speak(frase):
+
+def speak(phrase):
     try:
-        info = gtts.gTTS(frase,lang='pt-br')
+        info = gtts.gTTS(phrase, lang='pt-br')
         info.save('phrase.mp3')
         playsound('phrase.mp3')
         os.remove('phrase.mp3')
-    except Exception as error:
+    except Exception:
         pass
 
 
-def getPhrase(array):
-    tam = len(array)
-    if tam == 1:
-        return array[tam - 1]
-    tamRandom = random.randrange(0, tam)
-    return array[tamRandom]
+def get_phrase(array):
+    length = len(array)
+    if length == 1:
+        return array[length - 1]
+    lengthRandom = random.randrange(0, length)
+    return array[lengthRandom]
