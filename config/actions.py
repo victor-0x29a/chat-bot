@@ -1,9 +1,10 @@
-import pyautogui as p 
+import pyautogui as p
 import subprocess
 import time as t
 from .limits import speak
 
-def finishActionTerminal(action):
+
+def finish_action_console(action):
     t.sleep(0.5)
     p.write("clear")
     p.press("enter")
@@ -11,13 +12,15 @@ def finishActionTerminal(action):
     p.press("enter")
     speak(action)
 
-def openTerminal():
+
+def open_terminal():
     subprocess.run("gnome-terminal", shell=False, check=False)
 
-def enableAirmon():
+
+def enable_airmon():
     passsudo = str(input("\nDigite a senha de usuario root-> "))
     adapter = str(input("\nDigite o adaptador-> "))
-    openTerminal()
+    open_terminal()
     t.sleep(1.3)
     p.write(f"sudo airmon-ng start {adapter}", interval=0.1)
     t.sleep(0.5)
@@ -25,7 +28,4 @@ def enableAirmon():
     t.sleep(0.5)
     p.write(passsudo, interval=0.1)
     p.press("enter")
-    finishActionTerminal("Modo airmon-ng, ativado!")
-
-
-    
+    finish_action_console("Modo airmon-ng, ativado!")
