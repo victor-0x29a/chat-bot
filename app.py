@@ -1,10 +1,10 @@
-from config.limits import speak, get_phrase
 from constants import (
     INDECISIVE_MESSAGES,
     ERROR_MESSAGES,
     LEARNING_LEVEL,
     ACTIONS
 )
+from config.actions import speak, get_phrase
 
 
 class out:
