@@ -7,17 +7,17 @@ from constants import (
 from config.actions import speak, get_phrase
 
 
-class out:
+class ChatBot:
     def __init__(self, stdin):
-        self.itensOrganizados = []
+        self.organized_items = []
         self.choices = []
         self.std = stdin.lower().split()
         self.stdin = stdin
-        for acao in ACTIONS:
-            for palavras in acao["Words"]:
-                for palavra in self.std:
-                    if (palavra == palavras):
-                        self.choices.append(acao["UUID"])
+        for action in ACTIONS:
+            for action_word in action["Words"]:
+                for std_word in self.std:
+                    if (std_word == action_word):
+                        self.choices.append(action["UUID"])
 
     def collect_by_vector(self, frase, vetor, type, initials):
         # frase para percorrer
@@ -61,16 +61,16 @@ class out:
     def start(self):
         for item in self.choices:
             self.found = False
-            for obj in self.itensOrganizados:
+            for obj in self.organized_items:
                 if (obj["UUID"] == item):
                     self.found = True
                     obj["total"].append(1)
             if not self.found:
-                self.itensOrganizados.append({"UUID": item, "total": [1]})
+                self.organized_items.append({"UUID": item, "total": [1]})
 
         self.top = {"UUID": 0, "total": 0}
 
-        for item in self.itensOrganizados:
+        for item in self.organized_items:
             self.total = 0
             for i in item["total"]:
                 self.total += 1
@@ -103,5 +103,5 @@ class out:
 
 while True:
     stdin = str(input("-> "))
-    IA = out(stdin)
-    IA.start()
+    CHAT = ChatBot(stdin)
+    CHAT.start()
