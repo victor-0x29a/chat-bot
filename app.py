@@ -19,84 +19,97 @@ class ChatBot:
                     if (std_word == action_word):
                         self.choices.append(action["UUID"])
 
-    def collect_by_vector(self, frase, vetor, type, initials):
-        # frase para percorrer
-        # vetor para buscar os dados depois do vetor
-        # tipo de dados que ele esta buscando apos o vetor
-        self.stringToArray = frase.split()
+        self.call()
+
+    def collect_by_vector(self, phrase, vector, type, initials):
+        words_from_phrase = phrase.split()
         if type == "str":
-            self.word = "'"
-            self.vector = ""
-            self.foundSearch = False
-            for letter in frase:
-                if self.foundSearch:
-                    self.vector += letter
-                if letter == " " and not self.foundSearch:
+            word = "'"
+            vector = ""
+            is_found = False
+
+            for letter in phrase:
+                if is_found:
+                    vector += letter
+                if letter == " " and not is_found:
                     for palavra in initials:
-                        if palavra == self.word:
-                            self.word = ""
-                            self.foundSearch = True
-                    if not self.foundSearch:
-                        self.word = ""
-                elif letter != " " and not self.foundSearch:
-                    self.word += letter
-            return self.vector
-        for word in self.stringToArray:
-            if word == vetor:
-                self.stringToArray.remove(word)
+                        if palavra == word:
+                            word = ""
+                            is_found = True
+                    if not is_found:
+                        word = ""
+                elif letter != " " and not is_found:
+                    word += letter
+
+            return vector
+
+        for word in words_from_phrase:
+            if word == vector:
+                words_from_phrase.remove(word)
                 break
             else:
-                self.stringToArray.remove(word)
-        self.newArray = []
-        for item in self.stringToArray:
-            self.obj = item.replace(",", "")
-            if type == "int":
-                self.inteiros = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-                for i in self.inteiros:
-                    if self.obj == str(i):
-                        self.newArray.append(self.obj)
+                words_from_phrase.remove(word)
 
-        return self.newArray
+        new_list = []
+        int_array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    def start(self):
+        for item in words_from_phrase:
+            if type != "int":
+                return
+
+            obj = item.replace(",", "")
+
+            for int_number in int_array:
+                if obj == str(int_number):
+                    new_list.append(obj)
+
+        return new_list
+
+    def call(self):
         for item in self.choices:
-            self.found = False
+            is_item_found = False
+
             for obj in self.organized_items:
                 if (obj["UUID"] == item):
-                    self.found = True
+                    is_item_found = True
                     obj["total"].append(1)
-            if not self.found:
+
+            if not is_item_found:
                 self.organized_items.append({"UUID": item, "total": [1]})
 
-        self.top = {"UUID": 0, "total": 0}
+        top = {"UUID": 0, "total": 0}
 
         for item in self.organized_items:
-            self.total = 0
+            total = 0
             for i in item["total"]:
-                self.total += 1
-            if self.total > self.top["total"]:
-                self.top = {"UUID": item["UUID"], "total": self.total}
+                total += 1
+            if total > top["total"]:
+                top = {"UUID": item["UUID"], "total": total}
 
-        if (self.top["total"] < LEARNING_LEVEL):
+        if (top["total"] < LEARNING_LEVEL):
             return speak(get_phrase(INDECISIVE_MESSAGES))
-        for item in ACTIONS:
-            if item["UUID"] == self.top["UUID"]:
-                if not item["Actions"]["vetores"]:
-                    speak(get_phrase(item["response"]))
-                if item["action"]:
-                    item["action"]()
-                    return
-                for palavra in item["Actions"]["vetores"]:
-                    if palavra in self.stdin:
-                        self.dados = self.collect_by_vector(
+
+        for action in ACTIONS:
+            if action["UUID"] == top["UUID"]:
+                vectors = action["Actions"]["vectores"]
+
+                if not vectors:
+                    speak(get_phrase(action["response"]))
+
+                if action["action"]:
+                    return action["action"]()
+
+                for vector_word in vectors:
+                    if vector_word in self.stdin:
+                        data = self.collect_by_vector(
                             self.stdin,
-                            palavra,
-                            item["type"],
-                            item["Actions"]["vetores"]
+                            vector_word,
+                            action["type"],
+                            vectors
                         )
-                        if self.dados and item["action"]:
-                            speak(get_phrase(item["response"]))
-                            item["action"](self.dados)
+                        if data and action["action"]:
+                            speak(get_phrase(action["response"]))
+                            action["action"](data)
                         else:
                             speak(ERROR_MESSAGES)
 
@@ -104,4 +117,3 @@ class ChatBot:
 while True:
     stdin = str(input("-> "))
     CHAT = ChatBot(stdin)
-    CHAT.start()
